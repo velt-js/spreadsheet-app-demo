@@ -1,1 +1,185 @@
-/* You can add global styles to this file, and also import other style files */
+/* Core Data Grid CSS */
+@import 'ag-grid-community/styles/ag-grid.css';
+/* Quartz Theme Specific CSS */
+@import 'ag-grid-community/styles/ag-theme-quartz.css';
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+// Variables
+:root {
+	color-scheme: light dark;
+
+	--dark-bg-0: rgba(255, 255, 255, 0.06);
+	--dark-bg-1: rgba(255, 255, 255, 0.08);
+	--dark-text-0: rgba(255, 255, 255, 0.44);
+	--dark-text-1: rgba(255, 255, 255, 0.8);
+
+	--light-bg-0: rgba(0, 0, 0, 0.02);
+	--light-bg-1: rgba(0, 0, 0, 0.04);
+	--light-text-0: rgba(0, 0, 0, 0.44);
+	--light-text-1: rgba(0, 0, 0, 0.8);
+
+}
+
+.ag-theme-quartz {
+	--ag-active-color: light-dark(var(--light-text-0), var(--dark-text-0)) !important;
+}
+
+// Global styles
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	transition: all 150ms ease-in-out;
+}
+
+body {
+	background-color: light-dark(white, black);
+	color: light-dark(black, white);
+	font-family: Urbanist, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+button {
+	display: inline-flex;
+}
+
+.main {
+	width: 100%;
+	height: 100vh;
+}
+
+// AgGrid specific styles
+.ag-root,
+.ag-header,
+.ag-row,
+.ag-row-odd {
+	border-radius: 0px;
+	background-color: light-dark(white, black) !important;
+}
+
+.ag-root,
+.ag-root-wrapper {
+	color: light-dark(var(--light-text-1), var(--dark-text-1)) !important;
+}
+
+.ag-root-wrapper {
+	border-radius: 0 !important;
+	background-color: transparent;
+	border: none !important;
+}
+
+.ag-header,
+.ag-header-cell {
+	color: light-dark(var(--light-text-0), var(--dark-text-0)) !important;
+}
+
+.ag-header {
+	border-bottom: 1px solid light-dark(var(--light-bg-1), var(--dark-bg-1)) !important;
+}
+
+.ag-header-cell {
+	border-right: 1px solid light-dark(var(--light-bg-1), var(--dark-bg-1)) !important;
+	font-weight: bold !important;
+}
+
+.ag-cell {
+	border: none;
+	border-right: 1px solid light-dark(var(--light-bg-1), var(--dark-bg-1)) !important;
+	border-bottom: 1px solid light-dark(var(--light-bg-1), var(--dark-bg-1)) !important;
+	background-color: light-dark(white, black) !important;
+	color: light-dark(var(--light-text-1), var(--dark-text-1)) !important;
+	padding-right: 0 !important;
+	width: 100%;
+	display: flex !important;
+	align-items: center !important;
+
+	.ag-cell-wrapper {
+		width: 100%;
+	}
+
+	span {
+		width: 100%;
+
+		div {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
+
+	&:hover {
+		background-color: light-dark(hex(from var(--light-bg-0)), hex(from var(--dark-bg-0))) !important;
+	}
+
+
+	&:focus {
+		outline: none !important;
+	}
+}
+
+.ag-cell-focus {
+	border: 1px solid #FFCD2E !important;
+	border-radius: 8px !important;
+
+	&[aria-colindex="1"] {
+		border-left: 1px solid light-dark(var(--light-bg-1), var(--dark-bg-1)) !important;
+		border-top: 1px solid light-dark(var(--light-bg-1), var(--dark-bg-1)) !important;
+		border-radius: 0 !important;
+	}
+}
+
+.ag-row {
+	border: none !important;
+}
+
+.ag-header-cell-text,
+.ag-cell-value {
+	font-size: 14px !important;
+}
+
+.ag-cell-value {
+	color: light-dark(var(--light-text-1), var(--dark-text-1)) !important;
+}
+
+.ag-sticky-bottom {
+	display: none !important;
+}
+
+// Velt specific styles
+velt-comment-tool {
+	height: 52px !important;
+	place-content: flex-end;
+
+	>div>.velt-tool--action-btn {
+		opacity: 0 !important;
+
+		.ag-cell:hover & {
+			opacity: 1 !important;
+		}
+	}
+}
+
+velt-notifications-tool {
+	div div app-notifications-tool-label {
+		display: none;
+	}
+}
+
+// Custom styles
+.disable-cell {
+	color: light-dark(var(--light-text-0), var(--dark-text-0)) !important;
+	align-items: center;
+	justify-content: center;
+	border-right: 1px solid light-dark(var(--light-bg-1), var(--dark-bg-1)) !important;
+	border-bottom: 1px solid light-dark(var(--light-bg-1), var(--dark-bg-1)) !important;
+	border-radius: 0 !important;
+	padding: 0 !important;
+
+	&:hover {
+		background-color: light-dark(white, black) !important;
+	}
+
+	span div {
+		justify-content: center;
+	}
+}
