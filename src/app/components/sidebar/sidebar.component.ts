@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
 export class SidebarComponent {
 	public iconOnly: boolean = false;
 
+	// Hide Icons if screen size is small
   constructor() {
     this.checkScreenSize();
     window.addEventListener('resize', () => this.checkScreenSize());

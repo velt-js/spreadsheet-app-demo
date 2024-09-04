@@ -13,18 +13,20 @@ import { VeltService } from '../../services/velt.service';
 export class ToolbarComponent implements OnInit {
 	isDarkMode = false;
 
-	constructor(private veltService: VeltService) {}
+	constructor(private veltService: VeltService) { }
 
 	ngOnInit() {
 		this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 		this.updateColorScheme();
 	}
 
+	// Change theme when user clicks on theme button
 	toggleDarkMode() {
 		this.isDarkMode = !this.isDarkMode;
 		this.updateColorScheme();
 	}
 
+	// Update HTML & Velt Color theme 
 	private updateColorScheme() {
 		document.body.style.colorScheme = this.isDarkMode ? 'dark' : 'light';
 		this.veltService.setDarkMode(this.isDarkMode);

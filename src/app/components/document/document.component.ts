@@ -1,7 +1,8 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, effect } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { ROW_DATA } from '../../services/db.service';
+import { VeltService } from '../../services/velt.service';
 
 @Component({
 	selector: 'app-document',
@@ -12,13 +13,35 @@ import { ROW_DATA } from '../../services/db.service';
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DocumentComponent {
+	// Getting the Velt Client
+	client = this.veltService.clientSignal();
+
+	constructor(
+		private veltService: VeltService
+	) {
+		// Set Document when the velt client is initialized
+		effect(() => {
+
+			this.client = this.veltService.clientSignal();
+			if (this.client) {
+
+				// Contain your comments in a document by setting a Document ID & Name
+				this.client.setDocument('sheets', { documentName: 'sheets' });
+
+				// Enable dark mode for Velt UI
+				this.client.setDarkMode(true);
+			}
+		});
+	}
 
 	async ngOnInit(): Promise<void> {
+		// Hide empty cells when screen size is small
 		if (window.innerWidth < 1200 && this.gridApi) {
 			this.updateGridForScreenSize();
 		}
 	}
 
+	// Hide empty cells when screen size is small
 	@HostListener('window:resize', ['$event'])
 	onResize(event: Event) {
 		if (this.gridApi)
@@ -28,8 +51,10 @@ export class DocumentComponent {
 
 	private gridApi!: GridApi;
 
+	// Set you Row Data
 	rowData = ROW_DATA
-
+	
+	// Define your Columns and Add cell renderer function
 	colDefs: ColDef[] = [
 		{
 			headerName: ' ',
@@ -102,6 +127,7 @@ export class DocumentComponent {
 		cellRenderer: this.cellRenderer
 	}));
 
+	// Define Grid Settings
 	gridOptions: {
 		columnDefs: ColDef[];
 		rowData: Array<{ mission: string; destination: string; missionType: string }>;
@@ -120,6 +146,9 @@ export class DocumentComponent {
 
 		};
 
+	/**
+	 * Adding our comment tool in each cell using cellRenderer
+	 */
 	cellRenderer(params: any) {
 
 		const cellId = `cell-${params.data.columnId}-${params.colDef.field}`;
@@ -136,13 +165,11 @@ export class DocumentComponent {
 	}
 
 	onGridReady(params: GridReadyEvent) {
-		console.log(params);
 		this.gridApi = params.api;
 	}
 
+	// Hide empty rows in smaller screen sizes
 	updateGridForScreenSize() {
-		console.log(this.gridApi);
-
 		if (window.innerWidth < 1200) {
 			let updatedGrid = this.gridOptions;
 			updatedGrid.columnDefs[4].hide = true;
