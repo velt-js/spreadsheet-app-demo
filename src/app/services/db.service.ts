@@ -1,7 +1,7 @@
 export const ROW_DATA = [
 	{
 		columnId: "1",
-		mission: "Misson",
+		mission: "Mission",
 		destination: "Destination",
 		missionType: "Mission Type",
 		empty1: " ",
