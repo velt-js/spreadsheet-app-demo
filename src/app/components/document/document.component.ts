@@ -27,6 +27,8 @@ export class DocumentComponent {
 
 				// Contain your comments in a document by setting a Document ID & Name
 				this.client.setDocument('sheets', { documentName: 'sheets' });
+
+				this.client.getCommentElement().disableCommentPinHighlighter()
 			}
 		});
 	}
