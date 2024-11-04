@@ -100,10 +100,14 @@ button {
 		width: 100%;
 
 		div {
-			width: 100%;
+			width: inherit;
 			display: flex;
-			justify-content: space-between;
+			justify-content: flex-end;
 			align-items: center;
+
+			p {
+				width: 100%;
+			}
 		}
 	}
 
